@@ -1,0 +1,23 @@
+- if obj.present?
+  - obj.each do |post|
+    .row
+      .col-md-2
+        %section.employee_info.center
+          = link_to gravatar_for(post.user, size: 120), user_path(post.user)
+      .col-md-8.well
+        %table
+          %tr
+            %td
+              = "Created By : #{post.user.name}"
+          %tr
+            %td
+              %br
+              = link_to image_tag(post.image_url, size: '400x280'), post_path(post)
+        %p
+          %span.quiet
+            %small
+              Created #{time_ago_in_words(post.created_at)} ago
+- else
+  %center
+    %br
+    %p No Post Created yet

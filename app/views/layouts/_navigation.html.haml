@@ -1,0 +1,31 @@
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  = link_to 'BLOG', root_path, class: 'navbar-brand'
+  %button.navbar-toggler{"aria-controls" => "navbarSupportedContent", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarSupportedContent", "data-toggle" => "collapse", :type => "button"}
+    %span.navbar-toggler-icon
+  #navbarSupportedContent.collapse.navbar-collapse
+    %ul.navbar-nav.mr-auto
+      - if logged_in?
+        %li.nav-item.active
+          = link_to 'All Posts', posts_path, class: 'nav-link'
+        %li.nav-item.dropdown
+          %a#navbarDropdown.nav-link.dropdown-toggle.active{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            Posts
+          .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            = link_to 'New Post', new_post_path(current_user), class: 'dropdown-item'
+            = link_to 'Post Details', user_path(current_user), class: 'dropdown-item'
+      - if logged_in?
+        %li.nav-item.active
+          = link_to 'All Users', users_path, class: 'nav-link'
+    %ul.nav.navbar-nav.navbar-right
+      - if logged_in?
+        %li.nav-item.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#", role: "button"}
+            = current_user.name.capitalize
+            's Profile
+            \#{"Admin" if current_user.admin?}
+          .dropdown-menu{"aria-labelledby" => "navbarDropdown"}
+            = link_to 'View your profile', user_path(current_user), class: 'dropdown-item'
+            = link_to 'Edit your profile', edit_user_path(current_user), class: 'dropdown-item'
+            = link_to 'Log Out', logout_path, method: :delete, class: 'dropdown-item'
+      - else
+        %li.nav-item.dropdown= link_to "Log in", login_path, class: 'btn'

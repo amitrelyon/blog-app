@@ -1,0 +1,9 @@
+- if obj.errors.any?
+  %div{style: "background-color:#f2dede;color:#a94442"}
+    %h6.panel-title
+      = pluralize(obj.errors.count, "error")
+      prohibited this #{obj.class} from being saved:
+    .panel-body
+      %ul
+        - obj.errors.full_messages.each do |msg|
+          %li= msg

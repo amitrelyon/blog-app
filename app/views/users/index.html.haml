@@ -1,0 +1,19 @@
+= render 'shared/page_title', title: "showing all User"
+%center= will_paginate
+%div{align: "center"}
+  - if @users.present?
+    - @users.each do |user|
+      %ul.listing
+        .row
+        .well.col-md-3.col-md-offset-2{style: 'background-color:#f8f9fa'}
+          %dt= link_to gravatar_for(user), user_path(user)
+          %dt.user-title= link_to user.name.capitalize, user_path(user)
+          %dt
+            %small
+              = pluralize(user.posts.count, "post") if user.posts
+          - if logged_in? && current_user.admin? && !user.admin
+            %dt
+              = link_to "Delete this User", user_path(user), method: :delete, data: {confirm: "Are you sure you want to delete this User and all associated Posts?"}
+  - else
+    %h4 No User Found
+%center= will_paginate

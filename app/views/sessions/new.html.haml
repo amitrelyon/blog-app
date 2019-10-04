@@ -1,0 +1,17 @@
+= render 'shared/page_title', title: "log in"
+= form_for(:session, html: {class: "form-horizontal", role: "form"}, url: login_path) do |f|
+  .form-group
+    .control-label.col-md-2
+      = f.label :email
+    .col-md-8
+      = f.email_field :email, class: "form-control", placeholder: "Enter your email"
+  .form-group
+    .control-label.col-md-2
+      = f.label :password
+    .col-md-8
+      = f.password_field :password, class: "form-control", placeholder: "Enter your password"
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit "Log in", class: 'btn btn-primary btn-lg btn-xlarge'
+.col-md-4.col-md-offset-4.colormatch
+  < #{link_to "Don't have an account? Sign up now!", new_user_path} >

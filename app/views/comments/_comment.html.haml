@@ -1,0 +1,18 @@
+:javascript
+  function replyPost(){
+  $('#reply').html("#{escape_javascript render(partial: 'replies/reply')}");
+  }
+%p
+  = link_to gravatar_for(comment.user), user_path(comment.user)
+  = link_to comment.user.name, user_path(comment.user)
+%p
+  %strong Comment:
+  %em
+    = comment.comment_message
+  - if comment.user == current_user || current_user.admin?
+    = link_to 'Delete', [comment.post, comment], method: :delete, data: { confirm: 'Are you sure?' }
+  = button_tag 'Reply', onclick: "replyPost()"
+  %p
+    = time_ago_in_words(comment.created_at)
+    ago
+#reply

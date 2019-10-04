@@ -1,0 +1,4 @@
+= form_with(model: [@post, @post.comments.includes(:replies).build ], local: true) do |form|
+  %p
+    = form.text_field :comment_message, placeholder: 'reply'
+    = form.submit 'Reply'

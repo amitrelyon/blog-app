@@ -1,0 +1,31 @@
+= render 'shared/errors', obj: @user
+%div{align: "center"}
+.row
+  .col-md-12
+    = form_for(@user, html: { class: "form-horizontal", role: "form" }) do |f|
+      .form-group
+        .control-label.col-md-2
+          = f.label :name
+        .col-md-8
+          = f.text_field :name, class: "form-control", placeholder: "Enter your name", autofocus: true
+      .form-group
+        .control-label.col-md-2
+          = f.label :email
+        .col-md-8
+          = f.email_field :email, class: "form-control", placeholder: "Enter your email"
+      .form-group
+        .control-label.col-md-2
+          = f.label :password
+        .col-md-8
+          = f.password_field :password, class: "form-control", placeholder: "Choose a password"
+      .form-group
+        .control-label.col-md-2
+          = f.label :password_confirmation, "Confirm Password"
+        .col-md-8
+          = f.password_field :password_confirmation,
+            class: "form-control", placeholder: "Confirm password"
+      .form-group
+        .col-md-offset-2.col-md-10
+          = f.submit(@user.new_record? ? "Create my account" : "Update my account", class: "btn btn-primary btn-lg btn-xlarge")
+    .col-md-4.col-md-offset-4.colormatch
+      < #{link_to "Already have account ? Login ", login_path} > < #{link_to "Home", root_path} >

@@ -1,0 +1,6 @@
+= render 'shared/page_title', title: "showing all posts"
+%div{align: "center"}
+  = will_paginate
+= render 'post', obj: @posts
+%div{align: "center"}
+  = will_paginate

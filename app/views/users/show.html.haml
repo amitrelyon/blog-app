@@ -1,0 +1,15 @@
+= render 'shared/page_title', title: "#{@user.name} Profile"
+%div{align: "center"}
+  = will_paginate @user_post_details
+  = gravatar_for @user, size: 110
+  %br
+  %br
+  %h5 Name : #{@user.name}
+  %h5 Email : #{@user.email}
+%br
+%h4{align: "center"}
+  = @user.name
+  's Created Posts
+= render 'posts/post', obj: @user_post_details
+%div{align: "center"}
+  = will_paginate @user_post_details

@@ -1,0 +1,50 @@
+= render 'shared/page_title', title: "#{@post.user.name}'s Created Post"
+%div{align: 'center', style: 'background-color:#efeff5'}
+  .well.col-md-9.col-sm-offset-6
+    %h4.center.description
+      %strong Post Detail
+    %br
+    %table
+      %tr
+        %th
+          = "File Name : #{@post.file_name}"
+      %tr
+        %td
+          %br
+          = image_tag(@post.image_url, size: '400x280')
+      %tr
+        %td
+          %br
+          = " Description : #{@post.description}"
+          %br
+          %br
+          %p
+            = @post.likes.count
+            = (@post.likes.count) == 1 ? 'Like' : 'Likes'
+
+          = button_to 'Like', post_likes_path(@post), method: :post
+  .float-right
+    %em Created by
+    = link_to gravatar_for(@post.user), user_path(current_user)
+    %small= @post.user.name.capitalize
+  %br
+  %br
+  %p
+    .float-right
+      %p
+        = time_ago_in_words(@post.created_at)
+        ago
+  %br
+  .post-actions
+    - if logged_in? && (current_user == @post.user || current_user.admin?)
+      = link_to "Edit", edit_post_path(@post), class: "btn btn-warning"
+      = link_to "Delete", post_path(@post), method: :delete, data: { confirm: "Are you sure you want to delete this Post?" }, class: "btn btn-danger"
+    = link_to "Return to Post listing", posts_path, class: "btn btn-primary"
+%br
+%h2 Comments
+%table
+  = render @post.comments
+= form_with(model: [@post, @post.comments.build ], local: true) do |form|
+  %p
+    = form.text_field :comment_message, placeholder: 'Write your comment'
+    = form.submit 'Post'

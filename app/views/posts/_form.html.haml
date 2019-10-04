@@ -1,0 +1,24 @@
+= render 'shared/errors', obj: @post
+.row
+  .col-md-12
+    = form_for(@post, html: { class: "form-horizontal", role: "form", multipart: true }) do |f|
+      .form-group
+        .control-label.col-md-2
+          = f.label :file_name, 'File Name'
+        .col-md-8
+          = f.text_field :file_name, class: 'form-control file'
+      .form-group
+        .control-label.col-md-2
+          = f.label :image, 'Image'
+        .col-md-8
+          = f.file_field :image, class: 'form-control file'
+      .form-group
+        .control-label.col-md-2
+          = f.label :description
+        .col-md-8
+          = f.text_area :description, class: 'form-control'
+      .form-group
+        .col-md-4.col-md-offset-4.colormatch
+          = f.submit 'Create Post', class: "btn btn-primary btn-lg btn-xlarge colormatch"
+    .col-md-4.col-md-offset-4.colormatch
+      [ #{link_to "Back", users_path} ]
